@@ -4,6 +4,7 @@ import android.content.Context
 import com.example.cricinfo.data.local.UserPreferences
 import com.example.cricinfo.data.remote.FirebaseAuthService
 import com.example.cricinfo.domain.model.User
+import com.example.cricinfo.domain.model.UserProfile
 import com.example.cricinfo.domain.repository.AuthRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -20,16 +21,15 @@ class AuthRepositoryImpl @Inject constructor(
         return authService.login(email, password)
     }
 
-    override suspend fun register(email: String, password: String): Result<User> {
-        return authService.register(email, password)
+    override suspend fun register(email: String, password: String, name: String, mobileNumber: String, dob: String): Result<User> {
+        return authService.register(email, password, name, mobileNumber, dob )
     }
 
-    // Forgot Password Functionality
     override suspend fun sendPasswordResetEmail(email: String): Result<String> {
         return authService.sendPasswordResetEmail(email)
     }
 
-    override fun getRememberedEmail(): Flow<String?> {
+    override suspend fun getRememberedEmail(): Flow<String?> {
         return userPreferences.getSavedEmail()
     }
     override suspend fun saveEmailForRememberMe(email: String) {
@@ -38,6 +38,10 @@ class AuthRepositoryImpl @Inject constructor(
 
     override suspend fun clearEmail() {
         userPreferences.clearEmail()
+    }
+
+    override suspend fun getUserData(): UserProfile? {
+        return authService.getUserData()
     }
 
     override fun isUserLoggedIn(): Boolean {

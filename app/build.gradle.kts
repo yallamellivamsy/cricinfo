@@ -61,6 +61,7 @@ dependencies {
     implementation(libs.firebase.auth.ktx)
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.androidx.material)
+    implementation(libs.firebase.firestore.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -80,5 +81,11 @@ dependencies {
     implementation(libs.firebase.auth)
     implementation(libs.firebase.analytics)
     implementation(libs.hilt.navigation)
+    implementation(libs.carousel)
+    // Coil for image loading
+    implementation("io.coil-kt:coil-compose:2.4.0")
+    implementation("com.google.accompanist:accompanist-pager:0.34.0")
+    implementation("com.google.accompanist:accompanist-pager-indicators:0.34.0")
+    implementation("com.github.bumptech.glide:glide:4.16.0")
 
 }

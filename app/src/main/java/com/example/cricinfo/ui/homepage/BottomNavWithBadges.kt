@@ -21,7 +21,7 @@ fun BottomNavWithBadges(tabNavController: NavHostController, badgeCount: Int) {
                 icon = {
                     BadgedBox(
                         badge = {
-                            if (badgeCount > 0 && screen.route == "messages") {
+                            if (badgeCount > 0 && screen.route == "cart") {
                                 Badge { Text(badgeCount.toString()) }
                             }
                         }

@@ -1,5 +1,6 @@
 package com.example.cricinfo.ui.register
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -40,9 +41,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.cricinfo.R
 
 @Composable
@@ -53,9 +57,12 @@ fun RegisterScreen(
 ) {
 
     val state by viewModel.state.collectAsState()
-
+    var name by remember { mutableStateOf("") }
+    var mobileNumber by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
+    var dob by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    var confirmPassword by remember { mutableStateOf("") }
     val isPasswordVisible = remember { mutableStateOf(false) }
 
     // Toggle the visibility of the password
@@ -108,10 +115,25 @@ fun RegisterScreen(
                 ) {
                     Text("Register", style = MaterialTheme.typography.headlineLarge)
                     OutlinedTextField(
+                        value = name,
+                        onValueChange = { name = it },
+                        label = { Text("Name") }
+                    )
+                    OutlinedTextField(
+                        value = mobileNumber,
+                        onValueChange = { mobileNumber = it },
+                        label = { Text("Mobile Number") }
+                    )
+                    OutlinedTextField(
                         value = email,
                         onValueChange = { email = it },
                         label = { Text("Username") }
                     )
+                    DatePickerScreen(dateOfBirth = dob,
+                        onDateSelected = { selectedDate ->
+                            dob = selectedDate
+                        },
+                        modifier = Modifier.padding(start = 32.dp, top = 10.dp, end = 32.dp, bottom = 0.dp))
                     OutlinedTextField(
                         value = password,
                         onValueChange = { password = it },
@@ -129,7 +151,24 @@ fun RegisterScreen(
                         },
                         modifier = Modifier.padding(16.dp)
                     )
-                    Button(onClick = { viewModel.login(email, password) }) {
+                    OutlinedTextField(
+                        value = confirmPassword,
+                        onValueChange = { confirmPassword = it },
+                        label = { Text("confirmPassword") },
+                        visualTransformation = visualTransformation,
+                        trailingIcon = {
+                            IconButton(onClick = {
+                                isPasswordVisible.value = !isPasswordVisible.value
+                            }) {
+                                Icon(
+                                    imageVector = visibilityIcon,
+                                    contentDescription = "Toggle password visibility"
+                                )
+                            }
+                        },
+                        modifier = Modifier.padding(0.dp)
+                    )
+                    Button(onClick = { viewModel.register(email, password, confirmPassword, name, mobileNumber, dob) }) {
                         Text("Register")
                     }
                     when (state) {
@@ -148,7 +187,7 @@ fun RegisterScreen(
             ) {
                 TextButton(
                     onClick = {
-                        // Navigate to the register screen
+                        // Navigate to the login screen
                         navController.navigate("login"){
                             popUpTo(0)
                         }
@@ -161,7 +200,6 @@ fun RegisterScreen(
             }
         }
     }
-
 
     // Trigger side effect (navigation) in a safe way
     if (state is RegisterState.Success) {

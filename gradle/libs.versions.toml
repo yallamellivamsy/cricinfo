@@ -18,6 +18,8 @@ materialIconsExtended = "1.7.8"
 firebaseAuthKtx = "23.2.0"
 datastorePreferences = "1.2.0-alpha02"
 material = "1.9.0-alpha02"
+carousel = "0.1.1"
+firebaseFirestoreKtx = "25.1.4"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -50,6 +52,8 @@ androidx-material-icons-extended = { group = "androidx.compose.material", name =
 firebase-auth-ktx = { group = "com.google.firebase", name = "firebase-auth-ktx", version.ref = "firebaseAuthKtx" }
 androidx-datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastorePreferences" }
 androidx-material = { group = "androidx.compose.material", name = "material", version.ref = "material" }
+carousel = { group = "com.github.Guri999", name = "lazy-carousel", version.ref = "carousel"}
+firebase-firestore-ktx = { group = "com.google.firebase", name = "firebase-firestore-ktx", version.ref = "firebaseFirestoreKtx" }
 
 
 [plugins]

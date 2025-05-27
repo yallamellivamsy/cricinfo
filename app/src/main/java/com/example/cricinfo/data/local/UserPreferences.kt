@@ -24,7 +24,7 @@ class UserPreferences @Inject constructor(
         }
     }
 
-    fun getSavedEmail(): Flow<String?> {
+    suspend fun getSavedEmail(): Flow<String?> {
         return context.dataStore.data.map { prefs ->
             prefs[REMEMBERED_EMAIL]
         }

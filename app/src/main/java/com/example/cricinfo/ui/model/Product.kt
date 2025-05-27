@@ -5,3 +5,10 @@ data class Product(
     val name: String,
     val description: String
 )
+
+data class Product1(
+    val id: Int,
+    val name: String,
+    val price: Double,
+    val imageUrl: String
+)

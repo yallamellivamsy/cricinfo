@@ -5,6 +5,7 @@ import com.example.cricinfo.data.local.UserPreferences
 import com.example.cricinfo.data.remote.FirebaseAuthService
 import com.example.cricinfo.data.repository.AuthRepositoryImpl
 import com.example.cricinfo.domain.repository.AuthRepository
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.components.SingletonComponent
 import dagger.Module
@@ -19,12 +20,16 @@ object AppModule {
 
     @Provides
     @Singleton
+    fun provideFirestore(): FirebaseFirestore = FirebaseFirestore.getInstance()
+
+    @Provides
+    @Singleton
     fun provideFirebaseAuth(): FirebaseAuth = FirebaseAuth.getInstance()
 
     @Provides
     @Singleton
-    fun provideFirebaseAuthService(auth: FirebaseAuth): FirebaseAuthService {
-        return FirebaseAuthService(auth)
+    fun provideFirebaseAuthService(auth: FirebaseAuth, store: FirebaseFirestore ): FirebaseAuthService {
+        return FirebaseAuthService(auth, store)
     }
 
     @Provides

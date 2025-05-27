@@ -16,7 +16,7 @@ import com.example.cricinfo.ui.splash.SplashScreen
 
 @Composable
 fun AppNavHost(navController: NavHostController = rememberNavController()) {
-    NavHost(navController, startDestination = "home") {
+    NavHost(navController, startDestination = "splash") {
         composable("splash") {
             SplashScreen(navController = navController)
         }
